@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-node
+  labels:
+    app: myapp
+    type: backend
+spec:
+  template:
+    metadata:
+      name: node-rc-pod
+      labels:
+        app: POD-label
+        type: server
+    spec:
+      containers:
+        - name: node-server-container
+          image: gokupronoob/node-test
+  replicas: 2
+  selector:
+    matchLabels:
+      type: server
+
+
+# kubectl create -f rs-noode.yml -- Create replicaset
+# kubectl replace -f rs-node.yml -- update replicas
+# kubectl get replicaset -- get list of replicasets
+# kubectl scale --replicas=3 -f rs-node.yml -- scale replicas for replicaset defined in rs-node.yml file;
+# kubectl scale --replicas=3 replicaset rs-node -- scale replicas for replicaset type and replica named rs-node

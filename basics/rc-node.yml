@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: node-rc
+  labels:
+    app: myapp
+    type: backend
+spec:
+  template:
+    metadata:
+      name: node-rc-pod
+      labels:
+        app: POD-label
+        type: server
+    spec:
+      containers:
+        - name: node-server-container
+          image: gokupronoob/node-test
+  replicas: 2
