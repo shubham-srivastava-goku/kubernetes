@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rs-node
+  labels:
+    app: myapp
+    type: backend
+spec:
+  template:
+    metadata:
+      name: node-rc-pod
+      labels:
+        app: POD-label
+        type: server
+    spec:
+      containers:
+        - name: node-server-container
+          image: gokupronoob/node-test
+  replicas: 2
+  selector:
+    matchLabels:
+      app: POD-label
+      type: server
+
+# kubectl create -f deployment.yml
+## It will create a deployment which will create replicaset and replicaset will create pods.
+
+# kubectl get deployment
+# kubectl get all
+# kubectl describe deployment deployment-name
+# kubectl create deployment deployment_name --image=image_name --replocas: 3
+## kubectl create deployment --help to get more options
+
+# kubectl rollout status deployment_name
+# kubectl rollout history deployment_name
+
+# kubectl apply -f deployment.yml -- create new rollout
+# kubectl set image deployment deploymnet_name image_name:tag -- To create a rollout with the image (Alternate of apply command if only image is updated)
+# kubectl rollout undo deploymnet/deployment_name
